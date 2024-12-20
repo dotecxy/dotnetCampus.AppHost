@@ -21,7 +21,7 @@
     <PropertyGroup>
       <_DCAppHostRoot>$(MSBuildThisFileDirectory)..\</_DCAppHostRoot>
       <DCAppHostPatcherToolPath Condition="$(DCAppHostPatcherToolPath)==''">$(_DCAppHostRoot)tools\dotnetCampus.AppHost.dll</DCAppHostPatcherToolPath>
-      <_DCAppHostPatcherTool Condition="$(DCAppHostPatcherToolPath.EndsWith('.dll'))">dotnet $(DCAppHostPatcherToolPath)</_DCAppHostPatcherTool>
+      <_DCAppHostPatcherTool Condition="$(DCAppHostPatcherToolPath.EndsWith('.dll'))">dotnet "$(DCAppHostPatcherToolPath)"</_DCAppHostPatcherTool>
       <_DCAppHostPatcherTool Condition="$(_DCAppHostPatcherTool)==''">$(DCAppHostPatcherToolPath)</_DCAppHostPatcherTool>
       <_DCRuntimeIdentifier Condition="$(_DCRuntimeIdentifier)==''">$(DefaultAppHostRuntimeIdentifier)</_DCRuntimeIdentifier>
       <_DCRuntimeIdentifier Condition="$(_DCRuntimeIdentifier)==''">$(AppHostRuntimeIdentifier)</_DCRuntimeIdentifier>
@@ -83,7 +83,7 @@ AppHostNeedSystemPrereqsUrl        = $(AppHostNeedSystemPrereqsUrl) &lt;系统�
     <WriteLinesToFile Condition="$(_DCAppHostWillBeChanged)==true" File="$(_DCAppHostOptionFilePath)" Lines="@(_DCAppHostOptionLine)" Overwrite="True" />
 
     <Copy Condition="$(_DCAppHostWillBeChanged)==true" SourceFiles="$(_DCAppHostSourceFile)" DestinationFiles="$(_DCAppHostTempTargetFile)" />
-    <Exec Condition="$(_DCAppHostWillBeChanged)==true" Command="$(_DCAppHostPatcherTool) --options $(_DCAppHostOptionFilePath)"
+    <Exec Condition="$(_DCAppHostWillBeChanged)==true" Command="$(_DCAppHostPatcherTool) --options &quot;$(_DCAppHostOptionFilePath)&quot;"
           IgnoreExitCode="false">
       <Output TaskParameter="ExitCode" PropertyName="_DCAppHostPatcherExitCode" />
     </Exec>
